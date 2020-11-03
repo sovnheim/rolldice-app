@@ -1,0 +1,7 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+    background-color:lightslategrey;
+    
+}
