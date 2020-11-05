@@ -7,5 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'RollDice App';
+
+  constructor() {
+}
 }
 

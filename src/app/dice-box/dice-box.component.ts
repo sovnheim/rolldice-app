@@ -7,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiceBoxComponent implements OnInit {
 
+  diceCommand = '2D6';
+
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }
 
