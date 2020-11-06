@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DiceBoxComponent implements OnInit {
 
-  diceCommand = '2D6';
+  diceCommand = ''; // There's probably something better to do here than initialize an empty variable
 
   constructor() { }
 
