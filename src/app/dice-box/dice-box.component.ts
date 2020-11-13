@@ -8,26 +8,24 @@ import { Component, OnInit } from '@angular/core';
 
 export class DiceBoxComponent implements OnInit {
 
-  diceCommand = ''; // There's probably something better to do here than initialize an empty variable
+  diceCommand = '';
   validCommand = false;
 
-  // re = new RegExp('(?i)^(?P<dCount>\d+)d(?P<dType>\d+) ?(?P<dMod>[+-]\d+)?$');
 
-  const regex = /^coucou/gm;
-  const chaine = 'coucou le monde !';
 
-  const resultat = regex.test(chaine);
-
-  console;.log(resultat); // true
 
   constructor() { }
 
   onKey(event: any): void { // without type info
     this.diceCommand = event.target.value;
-    console.log('fuck all this and that');
+    // (?i)^(?P<dCount>\d+)d(?P<dType>\d+) ?(?P<dMod>[+-]\d+)?$
+    const regex = /^\d+[Dd]\d+ ?(\+\d+)?$/gm; // close enough
+    const resultat = regex.test(event.target.value);
+
+    console.log(resultat);
   }
 
   ngOnInit(): void {
+
   }
 }
-
