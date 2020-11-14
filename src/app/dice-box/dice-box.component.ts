@@ -1,4 +1,7 @@
+import { ArrayType } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
+
+const VALIDINPUT = /^(?<dCount>\d+)[Dd](?<dType>\d+) ?(?<dMod>\+\d+)?$/gm;
 
 @Component({
   selector: 'app-dice-box',
@@ -8,18 +11,16 @@ import { Component, OnInit } from '@angular/core';
 
 export class DiceBoxComponent implements OnInit {
 
-d = new DiceModel();
+  d: DiceModel;
 
-  constructor() { }
+  constructor() {
+    this.d = new DiceModel();
+  }
 
-  onKey(event: any): void { // without type info
-    // (?i)^(?P<dCount>\d+)d(?P<dType>\d+) ?(?P<dMod>[+-]\d+)?$
-    const regex = /^\d+[Dd]\d+ ?(\+\d+)?$/gm; // close enough
-
-    this.d.diceCommand = event.target.value;
-    this.d.validCommand = regex.test(this.d.diceCommand);
-
-    console.log(this.d.validCommand);
+  onKey(event: any): void {
+    if (/^\w$/gm.test(event.key)) {
+      this.d.validCommand = VALIDINPUT.test(this.d.diceCommand);
+    }
   }
 
   ngOnInit(): void {
@@ -28,11 +29,12 @@ d = new DiceModel();
 
 export class DiceModel {
 
-  public diceCommand: string;
-  public validCommand: boolean;
+  diceCommand: string;
+  validCommand: boolean;
 
-  constructor(){
+constructor(){
     this.diceCommand = '';
     this.validCommand = false;
   }
+
 }
