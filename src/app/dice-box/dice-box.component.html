@@ -1,12 +1,13 @@
 <mat-card class='dice-roll-box'>
     <mat-form-field class="example-full-width">
         <mat-label>Roll your dice:</mat-label>
-        <input matInput placeholder="2D6+3" [(ngModel)]='d.diceCommand' (keyup)="onKey($event)"> 
+        <input matInput placeholder="2D6+3" [(ngModel)]='d.diceCommand' (keyup)="onKey($event)">
     </mat-form-field>
+    <button type="button" mat-button color="primary" (click)="onClick($event)"> {{rollStatus}} </button>
 
     <br/>
     <div *ngIf="d.validCommand === true">
         Rolling : {{d.diceCommand}} <br/>
-        Result : {{d.result}}
+        Result : {{d.getVerboseResult()}}
     </div>
 </mat-card>
