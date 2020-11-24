@@ -94,7 +94,7 @@ export class DiceModel {
     const formattedMods = [];
     for (const mod of mods) {
       if (mod < 0) {
-        formattedMods.push('-' + mod.toString());
+        formattedMods.push(mod.toString());
       }
       else if (mod > 0) {
         formattedMods.push('+' + mod.toString());
