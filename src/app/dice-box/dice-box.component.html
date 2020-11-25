@@ -8,6 +8,8 @@
     <br/>
     <div *ngIf="d.validCommand === true">
         Rolling : {{d.diceCommand}} <br/>
-        Result : {{d.getVerboseResult()}}
+        Result : {{d.getVerboseResult()}} <br/>
+        Min: {{d.stats.min}}, Average: {{d.stats.average}}, Max: {{d.stats.max}} <br/>
+        Halved: {{d.stats.halved}}
     </div>
 </mat-card>

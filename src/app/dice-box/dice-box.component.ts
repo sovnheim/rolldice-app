@@ -52,6 +52,12 @@ export class DiceModel {
   rolledSet: number[];
   modifiers: number[];
   result: number;
+  stats: {
+    min: number,
+    max: number,
+    average: number,
+    halved: number;
+  };
 
   parseDiceCommand(): void {
     const parsedSet = DICE_COMMAND_REGEX.exec(this.diceCommand);
@@ -68,11 +74,23 @@ export class DiceModel {
     }
   }
 
+  rollDie(die: number): number {
+    return Math.floor(Math.random() * die) + 1;
+  }
+
+  diceAverage(rollableDice: number[]): number {
+    const result = [];
+    for (const die of rollableDice) {
+      result.push((die + 1) / 2);
+    }
+    return result.reduce((a, b) => a + b, 0);
+  }
+
   getRolledSet(rollable: number[]): number[] {
     const rolledSet = [];
 
     for (const die of rollable) {
-      rolledSet.push(Math.floor(Math.random() * die) + 1);
+      rolledSet.push(this.rollDie(die));
     }
     return rolledSet;
   }
@@ -88,6 +106,8 @@ export class DiceModel {
     this.parseDiceCommand();
     this.rolledSet = this.getRolledSet(this.rollableSet);
     this.updateResult();
+    this.runBasicStats();
+    // console.log(this.calculateDistribution(this.rollableSet));
   }
 
   formatModifiers(mods: number[]): string {
@@ -111,6 +131,33 @@ export class DiceModel {
     else {
       return this.rolledSet.join('+') + ' = ' + this.result.toString() ;
     }
+  }
 
+  runBasicStats(): void {
+    this.stats = {
+      min: this.rollableSet.length + this.modifiers.reduce((a, b) => a + b, 0),
+      max: this.rollableSet.reduce((a, b) => a + b, 0),
+      average: this.diceAverage(this.rollableSet) + this.modifiers.reduce((a, b) => a + b, 0),
+      halved: this.result / 2
+    };
+  }
+
+  calculateDistribution(rollableSet: number[]): number[] {
+    const generator = [];
+
+    for (const dice of rollableSet) {
+      generator.push(Array.from({ length: dice }, (x, i) => i + 1));
+    }
+
+    const cartesian = (...a) =>
+      // tslint:disable-next-line: no-shadowed-variable
+      a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())));
+
+    const output = [];
+
+    for (const outcome of cartesian(...generator)) {
+      output.push(outcome.reduce((a, b) => a + b, 0));
+    }
+    return output;
   }
 }
