@@ -107,7 +107,7 @@ export class DiceModel {
     this.rolledSet = this.getRolledSet(this.rollableSet);
     this.updateResult();
     this.runBasicStats();
-    // console.log(this.calculateDistribution(this.rollableSet));
+    console.log(this.calculateDistribution(this.rollableSet));
   }
 
   formatModifiers(mods: number[]): string {
