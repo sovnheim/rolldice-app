@@ -1,4 +1,4 @@
-import { DistributionModel } from './distribution.template';
+import { DistributionModel } from './distribution.model';
 
 export const DICE_COMMAND_REGEX = /^(?<dCount>\d+)[Dd](?<dType>\d+) ?(?<dMod>[+-]\d+)?$/;
 
@@ -75,7 +75,7 @@ export class DiceModel {
     // setting a limit on dist calculation for now
     if (this.rollableSet.length < 15) {
       const distribution = new DistributionModel();
-      console.log(distribution.unique);
+      console.log(distribution);
     }
   }
 
